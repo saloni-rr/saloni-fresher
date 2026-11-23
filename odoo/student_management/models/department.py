@@ -11,3 +11,7 @@ class Department(models.Model):
              'department_id',
                string="Student"
          )
+        student_ids = fields.Many2many(
+            'student.management',
+            string='Students'
+        )

@@ -1,0 +1,24 @@
+Odoo mein Widgets ka use fields ko user interface (UI) par different ways mein display karne ke liye hota hai.
+
+Simple words mein:
+
+Widget decides how a field looks and behaves on the screen.
+
+For example, normally a Boolean field displays as a checkbox. But using a widget, we can display it as a toggle switch.
+1. Why do we use widgets?
+Suppose you have a Student Management module and these fields:
+- Student Name
+- Student Photo
+- Gender
+- Active Status
+- Rating
+You can customize how these fields appear using widgets.
+2. Commonly used Odoo widgets
+1. Boolean Toggle
+Displays a Boolean field as an ON/OFF switch instead of a checkbox.
+widget="boolean_toggle"
+2. Many2many Tags
+
+Displays multiple related records as tags.
+
+widget="many2many_tags"

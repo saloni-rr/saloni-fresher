@@ -1,0 +1,12 @@
+1. What is Odoo?
+Odoo is an open-source business management software that provides different applications to manage and automate business operations.
+
+It is an ERP platform developed using Python and PostgreSQL.
+
+For example, suppose a company wants to manage:
+- Employees and their attendance.
+- Sales and customer details.
+- Products and inventory.
+- Accounting and invoices.
+- Purchase orders.
+Instead of using different software for everything, the company can use Odoo to manage all these operations from one integrated platform.

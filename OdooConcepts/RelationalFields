@@ -1,0 +1,56 @@
+1. Many2many field kya hota hai?
+Many2many ka matlab hai:
+- Ek Student ke multiple Departments ho sakte hain.
+- Ek Department mein multiple Students ho sakte hain.
+Yaani dono taraf multiple records connect ho sakte hain.
+
+Example:
+Student Records
+Rahul
+Python,Java,Odoo
+
+Priya
+Python,Odoo
+
+Ek student multiple courses mein hai aur ek course multiple students ke saath connected hai.
+
+example=> Tumhare model mein Many2many kaise banega?
+Tumhare paas already do models hain:
+- student.management
+- student.department
+Ab Student model mein ye field add karo:
+student.py
+department_ids = fields.Many2many(
+                       'student.department',
+                       string='Departments')
+
+Department model mein bhi reverse relation chahiye to:
+department.py
+student_ids = fields.Many2many(
+                          'student.management',
+                          string='Students')
+Odoo automatically relation table create kar sakta hai.
+Note : Database me table student_department_student_management_rel is name se bnegi
+---------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+1. One2many field kya hota hai?
+One2many ka matlab hai One record ke saath Multiple records connected hona.
+
+Tumhare project mein:
+- Ek Department ke andar multiple Students ho sakte hain.
+- Lekin ek Student ek hi Department se belong karega.
+Example:
+Computer Science Department(One Department)
+
+Rahul,Priya,Aman
+
+One Department → Many Students
+
+2. Tumhare existing code mein One2many
+Tumne Department model mein already One2many field banaya hua hai.
+
+department.py
+from odoo import fields, modelsclass Department(models.Model):    _name = 'student.department'    _description = 'Student Department'    name = fields.Char(        string="Department",        required=True    )    student_id = fields.One2many(        'student.management',        'department_id',        string="Students"    )
+
+student.py
+department_id = fields.Many2one(    'student.department',    string='Department')
