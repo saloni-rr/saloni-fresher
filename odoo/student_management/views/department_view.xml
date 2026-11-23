@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<odoo>
+    <record id="student_department_list_view" model="ir.ui.view">
+               <field name="name">student.department.list</field>
+                <field name="model">student.department</field>
+                <field name="type">list</field>
+                <field name="arch" type="xml">
+                        <list>
+                                <field name="name"/>
+                                <field name="student_id"/>
+                        </list>
+                </field>
+        </record>
+        <record id="student_department_form_view" model="ir.ui.view">
+               <field name="name">student.department.form</field>
+                <field name="model">student.department</field>
+                <field name="type">form</field>
+                <field name="arch" type="xml">
+                        <form string="Department">
+                          <sheet>
+                               <group>
+                                    <field name="name"/>
+                                   <field name="student_id"/>
+                               </group>
+                          </sheet>
+                        </form>
+                </field>
+        </record>
+</odoo>

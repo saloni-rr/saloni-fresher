@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <record model="ir.module.category" id="category_student_management">
+         <field name="name">Student Management</field>
+    </record>
+
+    <!-- Student Admin Group -->
+    <record id="group_student_admin" model="res.groups">
+        <field name="name">Student Admin</field>
+        <field name="category_id"
+               ref="category_student_management"/>
+        <field name="implied_ids"
+               eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <!-- Student Teacher Group -->
+    <record id="group_student_teacher" model="res.groups">
+        <field name="name">Student Teacher</field>
+        <field name="category_id"
+               ref="category_student_management"/>
+        <field name="implied_ids"
+               eval="[(4, ref('base.group_user'))]"/>
+    </record>
+        <!-- Student -->
+    <record id="group_student" model="res.groups">
+        <field name="name">Student</field>
+        <field name="category_id"
+               ref="category_student_management"/>
+        <field name="implied_ids"
+               eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+
+    <record model="ir.model.access" id="access_student_readonly">
+        <field name="name">student.management.teacher</field>
+        <field name="model_id" ref="model_student_management"/>
+        <field name="group_id" ref="group_student_teacher"/>
+        <field name="perm_read">1</field>
+        <field name="perm_write">1</field>
+        <field name="perm_create">0</field>
+        <field name="perm_unlink">0</field>
+    </record>
+
+    <record model="ir.model.access" id="access_student_admin">
+        <field name="name">student.management.admin</field>
+        <field name="model_id" ref="model_student_management"/>
+        <field name="group_id" ref="group_student_admin"/>
+        <field name="perm_read">1</field>
+        <field name="perm_write">1</field>
+        <field name="perm_create">1</field>
+        <field name="perm_unlink">1</field>
+    </record>
+        <record model="ir.model.access" id="access_student_readonly">
+        <field name="name">student.management.readonly</field>
+        <field name="model_id" ref="model_student_management"/>
+        <field name="group_id" ref="group_student"/>
+        <field name="perm_read">1</field>
+        <field name="perm_write">0</field>
+        <field name="perm_create">0</field>
+        <field name="perm_unlink">0</field>
+    </record>
+</odoo>
