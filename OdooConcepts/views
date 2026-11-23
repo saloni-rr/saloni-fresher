@@ -1,0 +1,75 @@
+Views in Odoo (Complete Basic Explanation)
+Odoo mein View ka matlab hai kisi Model ke data ko user interface (screen) par kis tarah display karna hai.
+Simple example:
+Tumhare paas student.py model hai, jisme Student Name, Email, Phone, Age fields hain.
+
+Ab in fields ko screen par:
+- Table mein dikhana hai → List View
+- Form mein dikhana hai → Form View
+- Cards mein dikhana hai → Kanban View
+Ye sab Views ke through hota hai.
+1. Important Views in Odoo 18
+
+1. List View (list)
+Multiple records ko rows aur columns mein display karta hai.
+Example: All Students ki list.
+<list>
+    <field name="name"/>
+    <field name="email"/>
+    <field name="age"/>
+</list>
+
+2. Form View (form)
+Ek record ki complete details display karta hai.
+Example: Rahul ki complete student details.
+<form>
+    <sheet>
+        <group>
+            <field name="name"/>
+            <field name="email"/>
+        </group>
+    </sheet>
+</form>
+
+3. Kanban View (kanban)
+Records ko cards ke form mein show karta hai.
+Example: Student Profile Cards.
+<kanban>
+    <templates>
+        <t t-name="card">
+            <field name="name"/>
+        </t>
+    </templates>
+</kanban>
+
+4. Search View (search)
+Records ko search, filter aur group karne ke liye.
+<search>
+    <field name="name"/>
+    <field name="email"/>
+</search>
+
+5. Calendar View (calendar)
+Records ko calendar format mein display karta hai.
+Example: Student Admission Dates.
+<calendar date_start="admission">
+    <field name="name"/>
+</calendar>
+
+6. Pivot View (pivot)
+Data analysis aur summary reports ke liye.
+Example: Department-wise Fees.
+<pivot>
+    <field name="department_id" type="row"/>
+    <field name="fees" type="measure"/>
+</pivot>
+
+7. Graph View (graph)
+Data ko graphical format mein show karta hai.
+
+Example: Student Fees Chart.
+<graph type="bar">
+    <field name="department_id"/>
+    <field name="fees" type="measure"/>
+</graph>
+

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+    <data>
         <!-- List View -->
         <record id="student_list_view" model="ir.ui.view">
                 <field name="name">student.management.list</field>
@@ -11,7 +12,6 @@
                                 <field name="age"/>
                                 <field name="phone"/>
                                 <field name="email"/>
-                               <field name="dob" />
                                 <field name="percentage"/>
                                 <field name="description"/>
                                 <field name="dob"/>
@@ -52,7 +52,6 @@
                                                     <field name="photo"/>
                                                     <field name="notes"/>
                                                     <field name="user_id"/>
-                                                    <field name="email"/>
                                                      <field name="department_ids" widget="many2many_tags"/>
                                                      <field name="department_id" widget="many2one"/>
                                             </group>
@@ -61,10 +60,38 @@
                             </form>
                     </field>
             </record>
+<!--kanban View-->
+        <record id="student_kanban_view" model="ir.ui.view">
+              <field name="name">student.management.kanban</field>
+             <field name="model">student.management</field>
+          <field name="arch" type="xml">
+          <kanban>
+              <templates>
+                  <t t-name="card">
+                      <field name="image" widget="image"/>
+                                <field name="name"/>
+                                <field name="age"/>
+                                <field name="phone"/>
+                                <field name="email"/>
+                               <field name="dob" />
+                                <field name="percentage"/>
+                                <field name="description"/>
+                                <field name="dob"/>
+                                <field name="admission"/>
+                                <field name="photo"/>
+                                <field name="notes"/>
+                            <field name="department_ids" widget="many2many_tags"/>
+                            <field name="fees" widget="monetary"/>
+                               <field name="is_active" widget="boolean_toggle"/>
+                  </t>
+              </templates>
+          </kanban>
+          </field>
+      </record>
          <record id="student_action" model="ir.actions.act_window">
                  <field name="name">Students</field>
                  <field name="res_model">student.management</field>
-                  <field name="view_mode">list,form</field>
+                  <field name="view_mode">kanban,list,form</field>
          </record>
             <!-- Menu -->
          <menuitem id="student_main_menu"
@@ -74,4 +101,5 @@
                   parent="student_main_menu"
                   action="student_action"
                    />
+    </data>
 </odoo>
