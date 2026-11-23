@@ -1,0 +1,284 @@
+                                                            Database
+1. What is SQL?
+SQL stands for Structured Query Language.
+
+SQL is a language used to communicate with relational databases.
+
+Using SQL, we can:
+- Create databases and tables.
+- Insert data into databases.
+- Retrieve data from databases.
+- Update existing records.
+- Delete records.
+- Manage relationships between tables.
+- Control access to data.
+
+2. What is a Database?
+A database is an organized collection of data that can be stored, accessed, managed and modified.
+
+3. What is DBMS?
+DBMS = Database Management System
+
+A DBMS is software that allows us to create, store, retrieve, update and manage databases.
+
+For example:
+- PostgreSQL
+- MySQL
+- Oracle Database
+- Microsoft SQL Server
+- SQLite
+Think of it this way:
+Term	                 Meaning
+Database	Collection of organized data
+DBMS	       Software that manages databases
+SQL	      Language used to communicate with a relational database
+
+4. What is RDBMS?
+RDBMS = Relational Database Management System
+
+It is a type of DBMS that stores data in tables and allows relationships between tables.
+
+SQL	                                         MySQL	                               PostgreSQL
+Query language	                                RDBMS	                                    RDBMS
+Used to communicate with databases	Executes SQL queries	                   Executes SQL queries
+Not database software	                Database software	                 Database software
+Remember:
+- SQL is a language.
+- MySQL is a database management system.
+- PostgreSQL is a database management system.
+- Both MySQL and PostgreSQL understand SQL, with some differences in syntax and features.
+
+5) 1)Table :A table stores data in rows and columns.
+  2)Row (Record):A row represents one complete record.
+ For example:
+1, Rahul, 22, Pune
+This is one student record.
+
+3) Column (Field) :A column represents one particular attribute of the data.
+Examples:
+- id
+- name
+- age
+- city
+4)Schema :A schema defines the logical structure of a database, including tables, columns, data types, relationships, constraints, etc.
+
+Remember:
+- Database = Collection of organized data.
+- Table = Data organized in rows and columns.
+- Row = One record.
+- Column = One attribute.
+- Schema = Structure of the database.
+
+6. SQL Commands
+SQL commands are divided into five major categories.
+Category	Full Form	                       Commands	                                  Purpose
+DDL	Data Definition Language	    CREATE, ALTER, DROP, TRUNCATE	                Structure
+DML	Data Manipulation Language	    INSERT, UPDATE, DELETE	                        Modify data
+DQL	Data Query Language	                  SELECT	                               Retrieve data
+DCL	Data Control Language	                 GRANT, REVOKE	                               Permissions
+TCL	Transaction Control Language	  COMMIT, ROLLBACK, SAVEPOINT	                       Transactions
+
+Easy way to remember:
+- DDL → Create or change tables.
+- DML → Insert, update or delete records.
+- DQL → Read records.
+- DCL → Control access.
+- TCL → Manage transactions.
+
+7.DELETE vs DROP vs TRUNCATE
+Command	      What happens
+DELETE	   Deletes selected/all rows
+TRUNCATE   Removes all rows quickly
+DROP	   Removes the entire table 
+
+8.Data Type                                                                                                              
+DECIMAL(precision, scale)
+- Precision = Total number of digits.
+- Scale = Number of digits after the decimal point.
+For example, DECIMAL(10,2) allows 12345678.90.     
+Operation	Correct syntax
+Create	 CREATE TABLE table_name
+Insert	  INSERT INTO table_name
+Update	 UPDATE table_name SET
+Delete	  DELETE FROM table_name
+
+6. UNIQUE
+Prevents duplicate values.
+email VARCHAR(100) UNIQUE
+Two employees cannot have the same email address.
+7. NOT NULL
+Makes a column mandatory.
+employee_name VARCHAR(100) NOT NULL
+You cannot insert an employee without a name.
+
+8. DEFAULT 
+DEFAULT Automatically inserts a predefined value when you don't provide one.
+is_active BOOLEAN DEFAULT TRUE
+If you don't provide is_active, it becomes TRUE.
+9.CHECK
+Validates a condition before accepting data.
+salary DECIMAL(10,2) CHECK (salary > 0)
+Salary must be greater than zero.
+
+10. ON DELETE CASCADE
+This is especially important when working with related tables.
+Suppose a department has 10 employees. If you delete that department, what happens to its employees?
+With ON DELETE CASCADE, all employees referencing that department are automatically deleted.
+CREATE TABLE employees (
+    employee_id INT PRIMARY KEY,
+    employee_name VARCHAR(100),
+    department_id INT REFERENCES departments(department_id)
+    ON DELETE CASCADE
+);
+
+11. SQL Operators
+Operators help us filter records using conditions.
+Operator	Example   	                   Meaning
+AND	 salary > 20000 AND salary < 50000	Both conditions true
+OR	 city = 'Pune' OR city = 'Indore'	Either condition true
+NOT	   NOT department_id = 1	        Excludes department 1
+IN	 department_id IN (1,2,3)	        Matches any listed value
+BETWEEN	 salary BETWEEN 20000 AND 40000	        Within inclusive range
+
+12. LIKE – Pattern Matching
+LIKE searches text based on patterns.
+Two important wildcards:
+=> % – Zero or more characters.
+=> _ – Exactly one character.
+| Query        |         Meaning       |
+|--------      |--------               |
+| `LIKE 'S%'`  | Starts with S         |
+| `LIKE '%a'`  | Ends with a           |
+| `LIKE '%lo%'`| Contains lo           |
+| `LIKE '_a%'` | Second character is a |
+| `LIKE 'Saloni| Exact matching pattern|
+
+13. ORDER BY – Sorting
+Sort records in ascending or descending order.
+-- Lowest salary first
+SELECT * FROM employees
+ORDER BY salary ASC;
+
+-- Highest salary first
+SELECT * FROM employees
+ORDER BY salary DESC;
+
+You can sort by multiple columns:
+SELECT * FROM employees
+ORDER BY department_id ASC, salary DESC;
+
+14. DISTINCT – Remove Duplicate Results
+Suppose 20 employees work in IT, HR and Finance.
+SELECT DISTINCT department_id
+FROM employees;
+Returns each department ID only once.
+
+You can use multiple columns:
+SELECT DISTINCT department_id, city
+FROM employees;
+It returns unique combinations of department and city.
+
+15. LIMIT – Restrict Records
+
+Get only the first 5 records:
+SELECT * FROM employees
+LIMIT 5;
+
+Get the top 3 highest-paid employees:
+SELECT * FROM employees
+ORDER BY salary DESC
+LIMIT 3;
+
+Get records starting from the sixth row:
+SELECT * FROM employees
+LIMIT 5 OFFSET 5;
+OFFSET skips records before returning the next set.
+
+16. NULL – Missing or Unknown Values
+NULL means a value is missing or unknown. It is not the same as zero or an empty string.
+Wrong:
+SELECT * FROM employees
+WHERE department_id = NULL;
+
+Correct:
+SELECT * FROM employees
+WHERE department_id IS NULL;
+
+Find employees whose department is assigned:
+SELECT * FROM employees
+WHERE department_id IS NOT NULL;
+
+Remember: Use IS NULL and IS NOT NULL, not = NULL.
+
+17. What is JOIN?
+A JOIN combines records from two or more tables based on a related column.
+INNER JOIN = Only matching records.
+LEFT JOIN = Everything from the left table.
+RIGHT JOIN = Everything from the right table.
+FULL OUTER JOIN = Everything from both tables.
+
+Quick revision: All SQL JOINs
+JOIN	              What does it return?
+INNER JOIN	     Only matching records
+LEFT JOIN	     All left + matching right
+RIGHT JOIN	     All right + matching left
+FULL OUTER JOIN	     All records from both
+SELF JOIN	     Table joined with itself
+CROSS JOIN	     Every possible combination
+
+18. Aggregate Functions
+Aggregate functions perform calculations on multiple records and return a single result per group (or one result for the entire table).
+There are five functions you must know.
+Function	Purpose
+COUNT()	Counts records or non-NULL values
+SUM()	Calculates total
+AVG()	Calculates average
+MIN()	Finds minimum
+MAX()	Finds maximum
+
+Important difference:
+- COUNT(*) counts all rows.
+- COUNT(column) counts only non-NULL values in that column.
+19. GROUP BY
+GROUP BY groups records that have the same value in a particular column.
+
+Suppose we want to know how many employees work in each department.
+Without GROUP BY, we can count all employees, but we cannot get a separate count for every department in one simple aggregate result.
+
+Query:
+SELECT department, COUNT(*)
+FROM employees
+GROUP BY department;
+
+Output:
+department	count
+IT	         3
+HR	         2
+Finance	         1
+20. HAVING
+HAVING filters grouped results.
+Suppose we want only those departments that have more than 2 employees.
+SELECT department, COUNT(*)
+FROM employees
+GROUP BY department
+HAVING COUNT(*) > 2;
+
+Output:
+department	count
+IT	         3
+
+WHERE vs HAVING
+WHERE	                                                   HAVING
+Filters individual rows	                              Filters groups
+Applied before grouping	                           Applied after grouping
+Used before GROUP BY logically	                 Used after GROUP BY logically
+Cannot directly filter on aggregate results	Can filter aggregate results
+
+Remember this query structure:
+SELECT
+FROM
+WHERE
+GROUP BY
+HAVING
+ORDER BY
+LIMIT;
